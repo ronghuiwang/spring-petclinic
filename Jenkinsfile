@@ -1,12 +1,11 @@
 #!groovy
 pipeline {
-	agent none
-        tools {
-    maven 'M3'
-  }
-  stages ('Build') {
-      steps {
-      	sh 'mvn clean install'
-      }
-  }
+agent { docker { image 'maven:3.8.6-openjdk-11-slim' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+    }
 }
